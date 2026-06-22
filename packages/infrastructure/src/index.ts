@@ -23,3 +23,5 @@ export interface ILockPort {
 
 export * from './adapters/RedisCacheAdapter';
 export * from './adapters/BullMQAdapter';
+export * from './auth/AuthenticationAdapter';
+export * from './auth/FirebaseAdapter';
