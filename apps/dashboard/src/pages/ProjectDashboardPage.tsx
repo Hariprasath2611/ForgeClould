@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { useWorkspaceStore, Environment, ProjectMember } from '../stores/useWorkspaceStore';
-import { socketManager } from '../lib/apiClient'; // Wait, let's import socketManager from lib/socketClient!
+import { socketManager } from '../lib/socketClient';
+import { apiClient } from '../lib/apiClient';
 import { Card, Button, Input } from '@forge/ui';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -59,7 +60,7 @@ export const ProjectDashboardPage: React.FC = () => {
     if (!projectId) return;
 
     // Connect to websocket gateway
-    const socket = require('../lib/socketClient').socketManager.connect();
+    const socket = socketManager.connect();
     if (socket) {
       socket.emit('join:project', projectId);
 
@@ -158,7 +159,7 @@ export const ProjectDashboardPage: React.FC = () => {
     try {
       const parsed = JSON.parse(configJson);
       // Simulating API import
-      await require('../lib/apiClient').apiClient.post(`/v1/projects/${currentProject._id}/import`, parsed);
+      await apiClient.post(`/v1/projects/${currentProject._id}/import`, parsed);
       alert('Configuration imported successfully!');
       fetchProjectDetails(currentProject._id);
       setConfigJson('');
