@@ -39,9 +39,14 @@ const Playground: React.FC = () => (
   </motion.div>
 );
 
+import { CursorAura } from '../features/core/components/CursorAura';
+import { AnimatedGridBackground } from '../features/core/components/AnimatedGridBackground';
+
 export const AppRouter: React.FC = () => {
   return (
     <ErrorBoundary>
+      <CursorAura />
+      <AnimatedGridBackground />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
