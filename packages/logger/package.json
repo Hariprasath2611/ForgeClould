@@ -1,1 +1,9 @@
-{ "name": "@forge/logger", "version": "0.1.0", "main": "src/index.ts" }
+{
+  "name": "@forge/logger",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "pino": "^9.0.0"
+  }
+}
