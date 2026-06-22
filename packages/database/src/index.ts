@@ -130,3 +130,10 @@ export abstract class BaseRepository<T extends IBaseDocument & Document> impleme
     }
   }
 }
+
+export * from './WorkspaceModel';
+export * from './ProjectModel';
+export * from './EnvironmentModel';
+export * from './ProjectMemberModel';
+export * from './ActivityModel';
+
