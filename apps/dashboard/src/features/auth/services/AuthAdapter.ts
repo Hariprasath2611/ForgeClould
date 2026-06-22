@@ -53,27 +53,33 @@ export class AuthAdapter {
     }
   }
 
-  static async loginWithGithub(): Promise<UserCredential> {
+  static async loginWithGithub(): Promise<{ credential: UserCredential, backendData: any }> {
     try {
-      return await signInWithPopup(auth, githubProvider);
+      const credential = await signInWithPopup(auth, githubProvider);
+      const backendData = await this.syncWithBackend(credential.user);
+      return { credential, backendData };
     } catch (error: any) {
       console.error("GitHub login failed:", error);
       throw new Error(error.message || "Failed to authenticate with GitHub.");
     }
   }
 
-  static async loginWithEmail(email: string, password: string): Promise<UserCredential> {
+  static async loginWithEmail(email: string, password: string): Promise<{ credential: UserCredential, backendData: any }> {
     try {
-      return await signInWithEmailAndPassword(auth, email, password);
+      const credential = await signInWithEmailAndPassword(auth, email, password);
+      const backendData = await this.syncWithBackend(credential.user);
+      return { credential, backendData };
     } catch (error: any) {
       console.error("Email login failed:", error);
       throw new Error(error.message || "Invalid email or password.");
     }
   }
 
-  static async registerWithEmail(email: string, password: string): Promise<UserCredential> {
+  static async registerWithEmail(email: string, password: string): Promise<{ credential: UserCredential, backendData: any }> {
     try {
-      return await createUserWithEmailAndPassword(auth, email, password);
+      const credential = await createUserWithEmailAndPassword(auth, email, password);
+      const backendData = await this.syncWithBackend(credential.user);
+      return { credential, backendData };
     } catch (error: any) {
       console.error("Registration failed:", error);
       throw new Error(error.message || "Failed to create account.");
