@@ -1,12 +1,11 @@
 import * as adminModule from 'firebase-admin';
-const admin = adminModule as any;
+const admin = (adminModule as any).default || adminModule;
 import { IAuthenticationAdapter, DecodedAuthToken } from './AuthenticationAdapter';
 
 export class FirebaseAdapter implements IAuthenticationAdapter {
   constructor() {
-    if (!admin.apps.length) {
-      // In a real environment, load these from secure environment variables
-      // For now, we mock the initialization if credentials aren't present
+    const apps = admin.apps;
+    if (!apps || !apps.length) {
       try {
         admin.initializeApp({
           credential: admin.credential.applicationDefault(),
@@ -18,9 +17,13 @@ export class FirebaseAdapter implements IAuthenticationAdapter {
     }
   }
 
+  private getAuth() {
+    return admin.auth();
+  }
+
   async verifyToken(idToken: string): Promise<DecodedAuthToken> {
     try {
-      const decoded = await admin.auth().verifyIdToken(idToken);
+      const decoded = await this.getAuth().verifyIdToken(idToken);
       return {
         uid: decoded.uid,
         email: decoded.email,
@@ -37,18 +40,18 @@ export class FirebaseAdapter implements IAuthenticationAdapter {
   }
 
   async getUserByEmail(email: string): Promise<any> {
-    return await admin.auth().getUserByEmail(email);
+    return await this.getAuth().getUserByEmail(email);
   }
 
   async disableUser(uid: string): Promise<void> {
-    await admin.auth().updateUser(uid, { disabled: true });
+    await this.getAuth().updateUser(uid, { disabled: true });
   }
 
   async revokeRefreshTokens(uid: string): Promise<void> {
-    await admin.auth().revokeRefreshTokens(uid);
+    await this.getAuth().revokeRefreshTokens(uid);
   }
 
   async createCustomToken(uid: string, claims?: any): Promise<string> {
-    return await admin.auth().createCustomToken(uid, claims);
+    return await this.getAuth().createCustomToken(uid, claims);
   }
 }
