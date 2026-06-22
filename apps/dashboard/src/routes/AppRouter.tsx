@@ -39,13 +39,13 @@ const Playground: React.FC = () => (
   </motion.div>
 );
 
-import { CursorAura } from '../features/core/components/CursorAura';
+import { CustomCursor } from '../features/core/components/CustomCursor';
 import { AnimatedGridBackground } from '../features/core/components/AnimatedGridBackground';
 
 export const AppRouter: React.FC = () => {
   return (
     <ErrorBoundary>
-      <CursorAura />
+      <CustomCursor />
       <AnimatedGridBackground />
       <BrowserRouter>
         <Routes>
