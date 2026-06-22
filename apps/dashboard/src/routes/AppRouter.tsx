@@ -41,6 +41,28 @@ const Playground: React.FC = () => (
 
 import { CustomCursor } from '../features/core/components/CustomCursor';
 import { AnimatedGridBackground } from '../features/core/components/AnimatedGridBackground';
+import { SignInPage } from '../features/auth/pages/SignInPage';
+import { SignUpPage } from '../features/auth/pages/SignUpPage';
+import { ForgotPasswordPage } from '../features/auth/pages/ForgotPasswordPage';
+import { useAuthStore } from '../features/auth/store/useAuthStore';
+
+// Simple Route Guard for authenticated areas
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated } = useAuthStore();
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+};
+
+// Route Guard to prevent logged-in users from seeing login pages
+const PublicOnlyRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isAuthenticated } = useAuthStore();
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  return <>{children}</>;
+};
 
 export const AppRouter: React.FC = () => {
   return (
@@ -49,11 +71,16 @@ export const AppRouter: React.FC = () => {
       <AnimatedGridBackground />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="/" element={<PublicOnlyRoute><LandingPage /></PublicOnlyRoute>} />
+          <Route path="/login" element={<PublicOnlyRoute><SignInPage /></PublicOnlyRoute>} />
+          <Route path="/register" element={<PublicOnlyRoute><SignUpPage /></PublicOnlyRoute>} />
+          <Route path="/forgot-password" element={<PublicOnlyRoute><ForgotPasswordPage /></PublicOnlyRoute>} />
+          
+          <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
             <Route index element={<Playground />} />
             {/* Future Routes: /dashboard/projects, /dashboard/deployments */}
           </Route>
+          
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
