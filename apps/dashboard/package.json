@@ -8,8 +8,6 @@
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
     },
     "devDependencies": {
-        "@types/react": "^18.2.0",
-        "@types/react-dom": "^18.2.0",
         "@vitejs/plugin-react": "^4.2.0",
         "typescript": "^5.2.2",
         "vite": "^5.0.0"
