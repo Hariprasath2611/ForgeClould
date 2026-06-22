@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { authenticate } from '@forge/express-core';
 import { FirebaseAdapter } from '@forge/infrastructure';
 import { projectUseCase } from '../services/ProjectUseCase';
-import { BadRequestException } from '@forge/exceptions';
+import { ValidationException } from '@forge/exceptions';
 
 export const ProjectController = Router();
 const authAdapter = new FirebaseAdapter();
@@ -16,7 +16,7 @@ ProjectController.post('/', async (req: Request, res: Response, next: NextFuncti
     const { workspaceId, name, slug, description, framework, repository, branch } = req.body;
 
     if (!workspaceId || !name || !repository) {
-      throw new BadRequestException('workspaceId, name, and repository are required');
+      throw new ValidationException('workspaceId, name, and repository are required');
     }
 
     const result = await projectUseCase.createProject({
@@ -47,7 +47,7 @@ ProjectController.get('/', async (req: Request, res: Response, next: NextFunctio
     const { workspaceId, status } = req.query;
 
     if (!workspaceId) {
-      throw new BadRequestException('workspaceId is a required query parameter');
+      throw new ValidationException('workspaceId is a required query parameter');
     }
 
     const projects = await projectUseCase.getProjectsInWorkspace(workspaceId as string, { status: status as string });
@@ -178,7 +178,7 @@ ProjectController.post('/:id/clone', async (req: Request, res: Response, next: N
     const { targetWorkspaceId } = req.body;
 
     if (!targetWorkspaceId) {
-      throw new BadRequestException('targetWorkspaceId is required in request body');
+      throw new ValidationException('targetWorkspaceId is required in request body');
     }
 
     const cloned = await projectUseCase.cloneProject({
@@ -205,7 +205,7 @@ ProjectController.post('/:id/transfer-ownership', async (req: Request, res: Resp
     const { newOwnerId } = req.body;
 
     if (!newOwnerId) {
-      throw new BadRequestException('newOwnerId is required in request body');
+      throw new ValidationException('newOwnerId is required in request body');
     }
 
     const updated = await projectUseCase.transferOwnership(

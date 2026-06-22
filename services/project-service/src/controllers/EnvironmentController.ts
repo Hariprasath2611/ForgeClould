@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { authenticate } from '@forge/express-core';
 import { FirebaseAdapter } from '@forge/infrastructure';
 import { environmentUseCase } from '../services/EnvironmentUseCase';
-import { BadRequestException } from '@forge/exceptions';
+import { ValidationException } from '@forge/exceptions';
 
 export const EnvironmentController = Router();
 const authAdapter = new FirebaseAdapter();
@@ -16,7 +16,7 @@ EnvironmentController.put('/:id/status', async (req: Request, res: Response, nex
     const { status } = req.body;
 
     if (!status) {
-      throw new BadRequestException('status is required in request body');
+      throw new ValidationException('status is required in request body');
     }
 
     const updated = await environmentUseCase.updateEnvironmentStatus(
@@ -43,7 +43,7 @@ EnvironmentController.post('/:id/scale', async (req: Request, res: Response, nex
     const { cpu, memory, storage } = req.body;
 
     if (cpu === undefined || memory === undefined || storage === undefined) {
-      throw new BadRequestException('cpu, memory, and storage are required in request body');
+      throw new ValidationException('cpu, memory, and storage are required in request body');
     }
 
     const updated = await environmentUseCase.scaleEnvironmentResources(
@@ -70,7 +70,7 @@ EnvironmentController.put('/:id/domains', async (req: Request, res: Response, ne
     const { customDomains } = req.body;
 
     if (!Array.isArray(customDomains)) {
-      throw new BadRequestException('customDomains must be an array of strings');
+      throw new ValidationException('customDomains must be an array of strings');
     }
 
     const updated = await environmentUseCase.updateEnvironmentDomains(

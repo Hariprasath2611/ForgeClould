@@ -1,5 +1,5 @@
 import { ProjectModel, EnvironmentModel, ProjectMemberModel, WorkspaceModel } from '@forge/database';
-import { ConflictException, NotFoundException, ForbiddenException } from '@forge/exceptions';
+import { ConflictException, NotFoundException } from '@forge/exceptions';
 import { quotaService } from './QuotaService';
 import { activityService } from './ActivityService';
 import { socketGateway } from '../socket/SocketGateway';

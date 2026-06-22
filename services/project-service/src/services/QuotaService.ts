@@ -1,5 +1,5 @@
 import { WorkspaceModel, ProjectModel, EnvironmentModel, ProjectMemberModel } from '@forge/database';
-import { ForbiddenException, NotFoundException } from '@forge/exceptions';
+import { AuthorizationException, NotFoundException } from '@forge/exceptions';
 
 export class QuotaService {
   async getWorkspaceUsage(workspaceId: string) {
@@ -56,7 +56,7 @@ export class QuotaService {
     });
 
     if (currentCount >= workspace.quotas.maxProjects) {
-      throw new ForbiddenException(
+      throw new AuthorizationException(
         `Workspace project limit reached (${currentCount}/${workspace.quotas.maxProjects}). Please upgrade your workspace.`
       );
     }
@@ -79,7 +79,7 @@ export class QuotaService {
     });
 
     if (currentCount >= workspace.quotas.maxMembers) {
-      throw new ForbiddenException(
+      throw new AuthorizationException(
         `Project member limit reached (${currentCount}/${workspace.quotas.maxMembers}). Please upgrade your workspace.`
       );
     }
@@ -112,13 +112,13 @@ export class QuotaService {
     }
 
     if (currentCpu + additionalCpu > workspace.quotas.maxCpuCores) {
-      throw new ForbiddenException(
+      throw new AuthorizationException(
         `CPU core quota exceeded. Requested: ${currentCpu + additionalCpu} Cores, Limit: ${workspace.quotas.maxCpuCores} Cores.`
       );
     }
 
     if (currentMemory + additionalMemory > workspace.quotas.maxMemoryMB) {
-      throw new ForbiddenException(
+      throw new AuthorizationException(
         `Memory quota exceeded. Requested: ${currentMemory + additionalMemory} MB, Limit: ${workspace.quotas.maxMemoryMB} MB.`
       );
     }

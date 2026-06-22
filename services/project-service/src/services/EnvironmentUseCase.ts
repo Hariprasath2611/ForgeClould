@@ -18,7 +18,7 @@ export class EnvironmentUseCase {
 
     const previousStatus = env.status;
     env.status = status;
-    env.updatedBy = actorId;
+    (env as any).updatedBy = actorId;
     await env.save();
 
     const project = await ProjectModel.findById(env.projectId);
@@ -69,7 +69,7 @@ export class EnvironmentUseCase {
       memory: params.memory,
       storage: params.storage,
     };
-    env.updatedBy = actorId;
+    (env as any).updatedBy = actorId;
     await env.save();
 
     await activityService.logActivity({
@@ -99,7 +99,7 @@ export class EnvironmentUseCase {
     }
 
     env.configuration.customDomains = customDomains;
-    env.updatedBy = actorId;
+    (env as any).updatedBy = actorId;
     await env.save();
 
     const project = await ProjectModel.findById(env.projectId);
