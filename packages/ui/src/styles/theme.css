@@ -1,15 +1,20 @@
 :root {
-  /* Colors - Forge Horizon Theme */
-  --color-primary: #0EA5E9;
-  --color-secondary: #8B5CF6;
-  --color-accent: #14B8A6;
-  --color-background: #0B1120;
-  --color-surface: #111827;
-  --color-card: #1E293B;
-  --color-border: #334155;
-  --color-text-primary: #F8FAFC;
-  --color-text-secondary: #CBD5E1;
-  --color-success: #22C55E;
+  /* Colors - Premium Green & Black Theme */
+  --color-primary: #10B981; /* Neon Emerald Green */
+  --color-primary-glow: rgba(16, 185, 129, 0.4);
+  
+  --color-secondary: #059669;
+  --color-accent: #34D399;
+  
+  --color-background: #000000; /* Pitch Black */
+  --color-surface: #09090b; /* Very Dark Gray */
+  --color-card: #121214;
+  --color-border: #27272a;
+  
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  
+  --color-success: #10B981;
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
   --color-info: #3B82F6;
@@ -45,12 +50,13 @@
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  /* Elevation */
+  /* Elevation & Glows */
   --shadow-none: none;
-  --shadow-low: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-high: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-overlay: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-low: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.7);
+  --shadow-high: 0 20px 25px -5px rgba(0, 0, 0, 0.8);
+  --shadow-overlay: 0 25px 50px -12px rgba(0, 0, 0, 1);
+  --shadow-glow: 0 0 15px var(--color-primary-glow);
 }
 
 body {
@@ -60,10 +66,13 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.05), transparent 50%);
+  background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  letter-spacing: -0.02em;
 }
 
 * {
