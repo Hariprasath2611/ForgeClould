@@ -192,7 +192,7 @@ export class ProjectUseCase {
     }
 
     project.status = 'ARCHIVED';
-    project.updatedBy = actorId;
+    (project as any).updatedBy = actorId;
     await project.save();
 
     await activityService.logActivity({
@@ -217,7 +217,7 @@ export class ProjectUseCase {
     }
 
     project.status = 'ACTIVE';
-    project.updatedBy = actorId;
+    (project as any).updatedBy = actorId;
     await project.save();
 
     await activityService.logActivity({
@@ -242,8 +242,8 @@ export class ProjectUseCase {
     }
 
     project.status = 'DELETED';
-    project.deletedAt = new Date();
-    project.deletedBy = actorId;
+    (project as any).deletedAt = new Date();
+    (project as any).deletedBy = actorId;
     await project.save();
 
     // Soft delete environments & members too
@@ -389,7 +389,7 @@ export class ProjectUseCase {
 
     const previousOwnerId = project.ownerId;
     project.ownerId = newOwnerId;
-    project.updatedBy = actorId;
+    (project as any).updatedBy = actorId;
     await project.save();
 
     // Sync project member role to OWNER for the new owner, and previous owner to ADMIN
@@ -447,7 +447,7 @@ export class ProjectUseCase {
     if (config.sourceControl) project.sourceControl = config.sourceControl;
     if (config.settings) project.settings = config.settings;
 
-    project.updatedBy = actorId;
+    (project as any).updatedBy = actorId;
     await project.save();
 
     await activityService.logActivity({
