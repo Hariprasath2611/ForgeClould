@@ -48,10 +48,6 @@ export class AuthAdapter {
       throw new Error(error.message || "Failed to authenticate with Google.");
     }
   }
-      console.error("Google login failed:", error);
-      throw new Error(error.message || "Failed to authenticate with Google.");
-    }
-  }
 
   static async loginWithGithub(): Promise<{ credential: UserCredential, backendData: any }> {
     try {
