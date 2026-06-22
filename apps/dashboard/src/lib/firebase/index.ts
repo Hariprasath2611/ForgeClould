@@ -16,7 +16,10 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const googleProvider = new GoogleAuthProvider();
+
 export const githubProvider = new GithubAuthProvider();
+githubProvider.addScope("read:user");
+githubProvider.addScope("user:email");
 
 // Analytics only in browser and only if supported
 export const analytics = isSupported().then((supported) =>

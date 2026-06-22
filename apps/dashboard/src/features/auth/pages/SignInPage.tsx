@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router';
 import { Card, Input, Button } from '@forge/ui';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '../store/useAuthStore';
-// In a real app we'd use signInWithEmailAndPassword from firebase/auth here.
+import { AuthAdapter } from '../services/AuthAdapter';
 
 export const SignInPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -12,15 +12,39 @@ export const SignInPage: React.FC = () => {
   const navigate = useNavigate();
   const { setUser } = useAuthStore();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API / Firebase call
-    setTimeout(() => {
-      setLoading(false);
-      setUser({ uid: 'mock-user-id', email } as any, 'mock-jwt-token');
+    try {
+      const result = await AuthAdapter.loginWithEmail(email, password);
+      // In a real flow, we would exchange this for a backend JWT
+      setUser(result.user, await result.user.getIdToken());
       navigate('/dashboard');
-    }, 1000);
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await AuthAdapter.loginWithGoogle();
+      setUser(result.user, await result.user.getIdToken());
+      navigate('/dashboard');
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const handleGithubLogin = async () => {
+    try {
+      const result = await AuthAdapter.loginWithGithub();
+      setUser(result.user, await result.user.getIdToken());
+      navigate('/dashboard');
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -44,7 +68,7 @@ export const SignInPage: React.FC = () => {
             <p style={{ color: 'var(--color-text-secondary)', marginTop: '8px' }}>Sign in to continue to ForgeCloud</p>
           </div>
 
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <form onSubmit={handleEmailLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: 'var(--color-text-secondary)' }}>Email Address</label>
               <Input 
@@ -74,6 +98,21 @@ export const SignInPage: React.FC = () => {
               Sign In
             </Button>
           </form>
+
+          <div style={{ margin: '24px 0', display: 'flex', alignItems: 'center', color: 'var(--color-text-secondary)', fontSize: '14px' }}>
+            <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border)' }} />
+            <span style={{ padding: '0 12px' }}>Or continue with</span>
+            <div style={{ flex: 1, height: '1px', backgroundColor: 'var(--color-border)' }} />
+          </div>
+
+          <div style={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
+            <Button variant="secondary" onClick={handleGoogleLogin} style={{ width: '100%' }}>
+              Google
+            </Button>
+            <Button variant="secondary" onClick={handleGithubLogin} style={{ width: '100%' }}>
+              GitHub
+            </Button>
+          </div>
 
           <div style={{ marginTop: '24px', textAlign: 'center', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
             Don't have an account? <Link to="/register" style={{ color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>Create one</Link>
