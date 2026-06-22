@@ -18,7 +18,6 @@ export const ProjectDashboardPage: React.FC = () => {
     scaleEnvironment, 
     archiveProject, 
     restoreProject,
-    useWorkspaceStoreState // Wait, we can fetch state from useWorkspaceStore
   } = useWorkspaceStore();
 
   const [activeTab, setActiveTab] = useState<'overview' | 'environments' | 'members' | 'activity' | 'settings'>('overview');
