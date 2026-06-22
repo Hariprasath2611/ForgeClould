@@ -64,6 +64,9 @@ const PublicOnlyRoute: React.FC<{ children: React.ReactNode }> = ({ children }) 
   return <>{children}</>;
 };
 
+import { ProjectsListPage } from '../pages/ProjectsListPage';
+import { ProjectDashboardPage } from '../pages/ProjectDashboardPage';
+
 export const AppRouter: React.FC = () => {
   return (
     <ErrorBoundary>
@@ -77,8 +80,8 @@ export const AppRouter: React.FC = () => {
           <Route path="/forgot-password" element={<PublicOnlyRoute><ForgotPasswordPage /></PublicOnlyRoute>} />
           
           <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
-            <Route index element={<Playground />} />
-            {/* Future Routes: /dashboard/projects, /dashboard/deployments */}
+            <Route index element={<ProjectsListPage />} />
+            <Route path="projects/:projectId" element={<ProjectDashboardPage />} />
           </Route>
           
           <Route path="*" element={<Navigate to="/" replace />} />

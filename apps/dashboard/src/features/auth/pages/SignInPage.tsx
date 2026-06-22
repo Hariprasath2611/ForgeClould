@@ -17,8 +17,7 @@ export const SignInPage: React.FC = () => {
     setLoading(true);
     try {
       const result = await AuthAdapter.loginWithEmail(email, password);
-      // In a real flow, we would exchange this for a backend JWT
-      setUser(result.user, await result.user.getIdToken());
+      setUser(result.credential.user, await result.credential.user.getIdToken());
       navigate('/dashboard');
     } catch (error) {
       alert(error);
@@ -30,7 +29,7 @@ export const SignInPage: React.FC = () => {
   const handleGoogleLogin = async () => {
     try {
       const result = await AuthAdapter.loginWithGoogle();
-      setUser(result.user, await result.user.getIdToken());
+      setUser(result.credential.user, await result.credential.user.getIdToken());
       navigate('/dashboard');
     } catch (error) {
       alert(error);
@@ -40,7 +39,7 @@ export const SignInPage: React.FC = () => {
   const handleGithubLogin = async () => {
     try {
       const result = await AuthAdapter.loginWithGithub();
-      setUser(result.user, await result.user.getIdToken());
+      setUser(result.credential.user, await result.credential.user.getIdToken());
       navigate('/dashboard');
     } catch (error) {
       alert(error);
