@@ -7,19 +7,26 @@
                     "dev":  "vite",
                     "lint":  "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
                 },
-    "devDependencies":  {
-                            "vite":  "^5.0.0",
-                            "typescript":  "^5.2.2"
-                        },
+    "devDependencies": {
+        "vite": "^5.0.0",
+        "typescript": "^5.2.2",
+        "@vitejs/plugin-react": "^4.2.0",
+        "@types/react": "^18.2.0",
+        "@types/react-dom": "^18.2.0"
+    },
     "type":  "module",
-    "dependencies":  {
-                         "react-dom":  "^19.0.0",
-                         "@tanstack/react-query":  "^5.0.0",
-                         "zustand":  "^4.5.0",
-                         "tailwindcss":  "^4.0.0",
-                         "framer-motion":  "^11.0.0",
-                         "react":  "^19.0.0",
-                         "react-router":  "^7.0.0"
-                     },
-    "private":  true
+    "dependencies": {
+        "react-dom": "^19.0.0",
+        "@tanstack/react-query": "^5.0.0",
+        "zustand": "^4.5.0",
+        "tailwindcss": "^4.0.0",
+        "framer-motion": "^11.0.0",
+        "react": "^19.0.0",
+        "react-router": "^7.0.0",
+        "axios": "^1.6.0",
+        "socket.io-client": "^4.7.0",
+        "lucide-react": "^0.300.0",
+        "@forge/ui": "workspace:*"
+    },
+    "private": true
 }
