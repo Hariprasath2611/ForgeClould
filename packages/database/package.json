@@ -4,6 +4,8 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "dependencies": {
-    "mongoose": "^9.7.1"
+    "@forge/exceptions": "workspace:*",
+    "@forge/shared-types": "workspace:*",
+    "mongoose": "^8.0.0"
   }
 }
