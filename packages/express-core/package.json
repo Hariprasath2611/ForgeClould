@@ -5,6 +5,7 @@
   "types": "src/index.ts",
   "dependencies": {
     "@forge/exceptions": "workspace:*",
+    "@forge/infrastructure": "workspace:*",
     "@forge/logger": "workspace:*",
     "@forge/shared-types": "workspace:*",
     "express": "^4.18.2"

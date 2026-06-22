@@ -60,3 +60,7 @@ export class InternalServerException extends AppException {
     super(message, 'INTERNAL_SERVER_ERROR', 500, details);
   }
 }
+
+export { AuthenticationException as UnauthorizedException };
+export { AuthorizationException as ForbiddenException };
+

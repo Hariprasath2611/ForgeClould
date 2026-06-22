@@ -197,6 +197,9 @@ importers:
       '@forge/exceptions':
         specifier: workspace:*
         version: link:../exceptions
+      '@forge/infrastructure':
+        specifier: workspace:*
+        version: link:../infrastructure
       '@forge/logger':
         specifier: workspace:*
         version: link:../logger
