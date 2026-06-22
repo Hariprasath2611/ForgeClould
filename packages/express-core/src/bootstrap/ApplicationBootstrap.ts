@@ -9,6 +9,7 @@ export interface BootstrapConfig {
   setupRoutes: (app: Express) => void;
   setupDependencies?: () => Promise<void>;
   shutdownDependencies?: () => Promise<void>;
+  onServerStart?: (server: Server) => void;
 }
 
 export class ApplicationBootstrap {
@@ -56,6 +57,9 @@ export class ApplicationBootstrap {
 
       this.server = this.app.listen(this.config.port, () => {
         logger.info(`${this.config.serviceName} is listening on port ${this.config.port}`);
+        if (this.config.onServerStart && this.server) {
+          this.config.onServerStart(this.server);
+        }
       });
 
       this.setupGracefulShutdown();
