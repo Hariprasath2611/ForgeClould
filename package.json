@@ -1,0 +1,23 @@
+{
+  "name": "forgecloud",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "typescript": "latest",
+    "prettier": "latest"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

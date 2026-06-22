@@ -1,0 +1,27 @@
+# Node
+node_modules
+dist
+.turbo
+coverage
+
+# Next.js / Vite
+.next
+out
+build
+.vite
+
+# Env
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
