@@ -17,7 +17,7 @@ export class AuthAdapter {
     try {
       const idToken = await user.getIdToken();
       // In production, this would point to the gateway service URL e.g. https://api.forgecloud.com/v1/auth/sync
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/v1'; // Map to auth-service directly for dev/docker
       
       const response = await fetch(`${API_URL}/auth/sync`, {
         method: 'POST',
@@ -31,7 +31,11 @@ export class AuthAdapter {
         throw new Error('Failed to synchronize user with backend.');
       }
 
-      return await response.json();
+      const syncResult = await response.json();
+      if (syncResult && syncResult.data && syncResult.data.session) {
+        localStorage.setItem('access_token', syncResult.data.session.token);
+      }
+      return syncResult;
     } catch (error: any) {
       console.warn("Backend sync warning (mock mode if backend is down):", error.message);
       return null;
@@ -85,6 +89,9 @@ export class AuthAdapter {
   static async logout(): Promise<void> {
     try {
       await signOut(auth);
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('current_workspace_id');
+      localStorage.removeItem('current_organization_id');
     } catch (error: any) {
       console.error("Logout failed:", error);
       throw new Error(error.message || "Failed to log out properly.");
