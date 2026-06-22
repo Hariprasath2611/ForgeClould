@@ -1,5 +1,5 @@
-import { UserModel } from '../infrastructure/models/UserModel';
-import { SessionModel } from '../infrastructure/models/SessionModel';
+import { UserModel } from '../../infrastructure/models/UserModel';
+import { SessionModel } from '../../infrastructure/models/SessionModel';
 import { DecodedAuthToken } from '@forge/infrastructure';
 import { randomBytes } from 'crypto';
 

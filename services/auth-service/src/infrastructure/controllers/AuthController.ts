@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { authenticate } from '@forge/express-core';
 import { FirebaseAdapter } from '@forge/infrastructure';
-import { authUseCase } from '../application/use-cases/AuthUseCase';
+import { authUseCase } from '../../application/use-cases/AuthUseCase';
 
 export const AuthController = Router();
 

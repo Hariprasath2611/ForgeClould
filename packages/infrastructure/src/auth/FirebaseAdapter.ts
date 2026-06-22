@@ -1,4 +1,5 @@
-import * as admin from 'firebase-admin';
+import * as adminModule from 'firebase-admin';
+const admin = adminModule as any;
 import { IAuthenticationAdapter, DecodedAuthToken } from './AuthenticationAdapter';
 
 export class FirebaseAdapter implements IAuthenticationAdapter {

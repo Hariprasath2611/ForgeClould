@@ -54,7 +54,6 @@ export interface DomainEvent {
 // BASE DOCUMENT STRUCTURE
 // ==========================================
 export interface IBaseDocument {
-  _id: any;
   createdAt: Date;
   updatedAt: Date;
   createdBy?: string;
