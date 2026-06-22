@@ -1,0 +1,101 @@
+/* Button */
+.forge-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.forge-btn-primary {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+.forge-btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.forge-btn-secondary {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+.forge-btn-secondary:hover {
+  background-color: var(--color-card);
+}
+
+.forge-btn-danger {
+  background-color: var(--color-danger);
+  color: #fff;
+}
+
+.forge-btn-sm { padding: var(--spacing-4) var(--spacing-8); font-size: 14px; }
+.forge-btn-md { padding: var(--spacing-8) var(--spacing-16); font-size: 16px; }
+.forge-btn-lg { padding: var(--spacing-12) var(--spacing-24); font-size: 18px; }
+
+/* Input */
+.forge-input {
+  width: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-8) var(--spacing-12);
+  transition: border-color 0.2s;
+}
+.forge-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* Card */
+.forge-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-16);
+  box-shadow: var(--shadow-low);
+}
+
+/* Modal */
+.forge-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.forge-modal-content {
+  background-color: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-24);
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid var(--color-border);
+}
+
+/* Terminal */
+.forge-terminal {
+  background-color: #000;
+  color: #0f0;
+  font-family: var(--font-code);
+  padding: var(--spacing-16);
+  border-radius: var(--radius-sm);
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+/* CodeBlock */
+.forge-code-block {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-16);
+  font-family: var(--font-code);
+  overflow-x: auto;
+}
