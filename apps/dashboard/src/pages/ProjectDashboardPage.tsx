@@ -77,6 +77,7 @@ export const ProjectDashboardPage: React.FC = () => {
 
       socket.on('environment:scaled', (updatedEnv: Environment) => {
         if (updatedEnv.projectId === projectId) {
+          
           fetchProjectDetails(projectId);
           addActivity({
             action: 'env.scaled',
